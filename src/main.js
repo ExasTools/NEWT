@@ -12,8 +12,7 @@ function showHome() {
       </section>
     </main>
     `
-  document.querySelector('#start-lore').addEventListener('click', loremOne)
-  document.querySelector('#lorem2').addEventListener('click', loremTwo)
+  hookHeaderButtons()
 }
 
 // felt like the header should go here to keep it out of the way for the main code
@@ -29,52 +28,52 @@ function displayHeader() {
       <button id="settings-button" class="nav-button">Settings</button>
     </section>
   `
-  document.querySelector('#home-button').addEventListener('click', showHome)
-  document.querySelector('#vault-button').addEventListener('click', loremOne)
-  document.querySelector('#writing-button').addEventListener('click', loremTwo)
-  document.querySelector('#settings-button').addEventListener('click', loremThree)
 }
 
-function loremOne() {
+function hookHeaderButtons() {
+  // because displayHeader() doesn't return any actual javascript- only HTML
+  // this will hook the headers so the buttons can actually be used. 
+  document.querySelector('#home-button').addEventListener('click', showHome)
+  document.querySelector('#vault-button').addEventListener('click', showLoreVault)
+  document.querySelector('#writing-button').addEventListener('click', showWritingDesk)
+  document.querySelector('#settings-button').addEventListener('click', showSettings)
+}
+
+function showLoreVault() {
   app.innerHTML = `
     <main class="app-shell">
+      ${displayHeader()}
       <h1>Lorem 1</h1>
       <p class="subtitle">This is but a test of Lorem 1.</p>
 
-      <section class="tool-card">
-        <button id="back-home">Home</button>
-      </section>
     </main>
     `
-    document.querySelector('#back-home').addEventListener('click', showHome)
+    hookHeaderButtons()
 }
 
-function loremTwo() {
+function showWritingDesk() {
   app.innerHTML = `
     <main class="app-shell">
+      ${displayHeader()}
       <h1>Lorem 2</h1>
       <p class="subtitle">Second test of Lorem 2. </p>
 
-      <section class="tool-card">
-        <button id="back-home">Home</button>
-      </section>
     </main>
   `
 
-  document.querySelector('#back-home').addEventListener('click', showHome)
+  hookHeaderButtons()
 }
 
-function loremThree() {
+function showSettings() {
   app.innerHTML = `
     <main class="app-shell">
+      ${displayHeader()}
+      <br>
       <p class="subtitle">it works too... </p>
 
-      <section class="tool-card">
-        <button id="back-home">Home</button>
-      </section>
     </main>
   `
-  document.querySelector('#back-home').addEventListener('click', showHome)
+  hookHeaderButtons()
 }
 
 showHome()

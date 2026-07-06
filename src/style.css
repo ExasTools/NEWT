@@ -39,14 +39,20 @@ button {
   color: white;
   border: 1px solid #33333d;
   padding: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 header {
   color: navy;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .header-section {
   padding: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
