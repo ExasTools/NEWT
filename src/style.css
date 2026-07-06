@@ -33,3 +33,20 @@ button {
   border-radius: 10px;
   cursor: pointer;
 }
+
+.nav-button {
+  background: blue;
+  color: white;
+  border: 1px solid #33333d;
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+header {
+  color: navy;
+}
+
+.header-section {
+  padding: 5px;
+}
