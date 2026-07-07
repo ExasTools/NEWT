@@ -2,6 +2,11 @@ import './style.css'
 
 const app = document.querySelector('#app')
 
+// Define arrays (empty drawer)
+let Characters = []
+// I've refrained from adding ALL the drawers, I get scope creep like a mofo
+
+
 function showHome() {
   app.innerHTML = `
     <main class="app-shell">
@@ -70,8 +75,12 @@ function hookAltHeader() { // I decided against resusing hookHeaderButtons()
   document.querySelector("#factions-button").addEventListener('click', lvFactions)
   
 }
-
+/**
+ * @deprecated Functionality built into other method
+ */
 function charSubmit() {
+  console.warn("Warning: Deprecated! Are you testing something?")
+
   const charName = document.querySelector("#charName")
   const charNick = document.querySelector("#charNickname")
   const charAge = document.querySelector("#charAge")
@@ -151,11 +160,56 @@ function lvChar() {
       <label>Description</label>
       <textarea class="field-input" id="charDesc"></textarea>
       <br><br>
-      <button id="submit-button">Export to Console</button>
+      <button id="submit-button">Save (loosely)</button>
     </section>
+
+    <section class="tool-card" id="characters-list"></section>
   `
   hookAltHeader()
-  document.querySelector("#submit-button").addEventListener('click', charSubmit)
+  document.querySelector("#submit-button").addEventListener('click', () => {
+    const charName = document.querySelector("#charName")
+    const charNick = document.querySelector("#charNickname")
+    const charAge = document.querySelector("#charAge")
+    const charRace = document.querySelector("#charRace")
+    const charDesc = document.querySelector("#charDesc")
+
+    const builtCharacter = {
+      name: charName.value,
+      nickname: charNick.value,
+      age: charAge.value,
+      race: charRace.value,
+      description: charDesc.value
+    }
+
+    Characters.push(builtCharacter)
+
+    console.log(Characters)
+    pushDataToPage(1)
+
+  })
+}
+
+function pushDataToPage(formID){
+  if (!Number.isInteger(formID)) {
+    console.error("formID must be an integer")
+    return
+  }
+
+  switch (formID) {
+    case 1:
+      document.querySelector('#characters-list').innerHTML = 
+        Characters.map(character => `
+          <section class="character-card">
+          <h2>${character.name}</h2>
+          <p>${character.nickname}</p>
+          <p>${character.age}</p>
+          <p>${character.race}</p>
+          <p>${character.description}</p>
+          </section>
+        `).join('')
+    break
+
+  }
 }
 
 function lvPlaces() {
