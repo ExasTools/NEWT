@@ -148,7 +148,7 @@ function lvChar() {
       <input class="field-input" id="charRace">
       <br>
       <label>Description</label>
-      <input class="field-input" id="charDesc">
+      <textarea class="field-input" id="charDesc"></textarea>
       <br><br>
       <button id="submit-button">Export to Console</button>
     </section>
