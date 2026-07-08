@@ -79,11 +79,11 @@
     <section class="tool-card" id="characters-list"></section>
   `,o(),document.querySelector(`#submit-button`).addEventListener(`click`,()=>{let e=document.querySelector(`#charName`),n=document.querySelector(`#charNickname`),r=document.querySelector(`#charAge`),i=document.querySelector(`#charRace`),a=document.querySelector(`#charDesc`),o={name:e.value,nickname:n.value,age:r.value,race:i.value,description:a.value};t.push(o),console.log(t),d(1)})}function d(e){if(!Number.isInteger(e)){console.error(`formID must be an integer`);return}switch(e){case 1:document.querySelector(`#characters-list`).innerHTML=t.map(e=>`
           <section class="character-card">
-          <h2>${e.name}</h2>
-          <p>${e.nickname}</p>
-          <p>${e.age}</p>
-          <p>${e.race}</p>
-          <p>${e.description}</p>
+          <h2>Name: ${e.name}</h2>
+          <p>Nickname: ${e.nickname}</p>
+          <p>Age: ${e.age}</p>
+          <p>Race: ${e.race}</p>
+          <p>Description: ${e.description}</p>
           </section>
         `).join(``);break}}function f(){e.innerHTML=`
     <main class="app-shell">
