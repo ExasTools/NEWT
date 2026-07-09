@@ -86,9 +86,9 @@
           <p>Race: ${e.race}</p>
           <p>Description: ${e.description}</p>
           <p>Index: ${t}</p>
-          <button id="edit-button" class="form-button" data-index="${t}">Edit</button> <button id="delete-button" class="form-button" data-index="${t}">Delete</button>
+          <button class="form-button" data-index="${t}">Edit</button> <button class="form-button" data-index="${t}">Delete</button>
           </section>
-        `).join(``);break}document.querySelector(`.form-button`).addEventListener(`click`,()=>{document.querySelectorAll(`.form-button`).forEach(e=>{e.addEventListener(`click`,()=>{console.log(`Look the button says the ID is `+e.dataset.index)})})})}function f(){e.innerHTML=`
+        `).join(``);break}document.querySelectorAll(`.form-button`).forEach(e=>{e.addEventListener(`click`,()=>{console.log(`Look the button says the ID is `+e.dataset.index)})})}function f(){e.innerHTML=`
     <main class="app-shell">
     ${i()}
     <br>
