@@ -16,7 +16,7 @@ function showHome() {
       <section class="tool-card">
         <p> Currently, the only features available is a very rudamentary character input screen. More to come... </p>
         <p> That said, to those that read this- thank you for checking out what I'm working on! I really appreciate it more than I can convey through text </p>
-      </section>
+        
       ${displayFooter()}
     </main>
     
@@ -32,8 +32,10 @@ function displayHeader() {
     <section class="header-section">
       <button id="home-button" class="nav-button">Home</button>
       <button id="vault-button" class="nav-button">Lore Vault</button>
+      <button id="time-button" class="nav-button">Timeline</button>
       <button id="writing-button" class="nav-button">Writing Desk</button>
       <button id="settings-button" class="nav-button">Settings</button>
+      <button id="devlog-button" class="nav-button">Dev Log</button>
     </section>
   `
 }
@@ -47,11 +49,22 @@ function displayLoreHeader() {
         <button id="locs-button" class="nav-button">Places</button>
         <button id="events-button" class="nav-button">Events</button>
         <button id="tags-button" class="nav-button">Tags</button>
-        <button id="time-button" class="nav-button">Timeline</button>
         <button id="religion-button" class="nav-button">Religions</button>
         <button id="gods-button" class="nav-button">Gods/Higher Powers</button>
         <button id="nations-button" class="nav-button">Nations</button>
         <button id="factions-button" class="nav-button">Factions</button>
+      </section>
+  `
+}
+
+function displayTimeHeader() {
+  return `
+    <h1> The Timeline </h1>
+      <section class="header-section">
+        <button id="home-button" class="nav-button">Home</button>
+        <button class="nav-button">Placeholder</button>
+        <button class="nav-button">Placeholder</button>
+        <button class="nav-button">Placeholder</button>
       </section>
   `
 }
@@ -69,6 +82,8 @@ function hookHeaderButtons() {
   document.querySelector('#vault-button').addEventListener('click', showLoreVault)
   document.querySelector('#writing-button').addEventListener('click', showWritingDesk)
   document.querySelector('#settings-button').addEventListener('click', showSettings)
+  document.querySelector("#time-button").addEventListener('click', lvTimeline)
+  document.querySelector("#devlog-button").addEventListener('click', devLog)
 }
 
 function hookAltHeader() { // I decided against resusing hookHeaderButtons()
@@ -77,12 +92,15 @@ function hookAltHeader() { // I decided against resusing hookHeaderButtons()
   document.querySelector("#locs-button").addEventListener('click', lvPlaces)
   document.querySelector("#events-button").addEventListener('click', lvEvents)
   document.querySelector("#tags-button").addEventListener('click', lvTags)
-  document.querySelector("#time-button").addEventListener('click', lvTimeline)
   document.querySelector("#religion-button").addEventListener('click', lvReligion)
   document.querySelector("#gods-button").addEventListener('click', lvGods)
   document.querySelector("#nations-button").addEventListener('click', lvNations)
-  document.querySelector("#factions-button").addEventListener('click', lvFactions)
-  
+  document.querySelector("#factions-button").addEventListener('click', lvFactions)  
+}
+
+function hookTimeHeader() {
+  document.querySelector("#home-button").addEventListener('click', showHome)
+  // TODO: Add more when I get to this :)
 }
 /**
  * @deprecated Functionality built into other method
@@ -119,6 +137,31 @@ function showLoreVault() {
     </main>
     `
     hookAltHeader()
+}
+
+function devLog() {
+  app.innerHTML = `
+    <main class="app-shell">
+    ${displayHeader()}
+
+    <section class="tool-card">
+      <p><strong>Development Log</strong></p>
+
+      <p><strong>build-0.0.1</strong></p>
+      <p>• Put together the basic framework.</p>
+      <p>• Got page navigation working.</p>
+      <p>• Characters can now be created and stored.</p>
+      <p>• Character cards finally look like... well, cards.</p>
+      <p>• Learned map(), index, and why event listeners should behave themselves.</p>
+      <p>• Fixed a performance issue that was entirely my own fault.</p>
+      <p>• Added build information to the footer.</p>
+      <p>• Calling this a solid first milestone.</p>
+      <p>• Oh! And also added a lil devlog page.</p>
+    </section>
+    ${displayFooter()}
+    </main>
+  `
+  hookHeaderButtons()
 }
 
 function showWritingDesk() {
@@ -273,13 +316,15 @@ function lvTags() {
 function lvTimeline() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
+    ${displayTimeHeader()}
     <br>
     <section class="tool-card">
-      <p>Timeline page</p>
+      <p>This is a planned major feature!</p>
+      <p>That said... I couldn't tell you when I'll get around to it.</p>
+      <p>Check back sometime after I finish more of the Lore Vault </p>
     </section>
   `
-  hookAltHeader()
+  hookTimeHeader()
 }
 
 function lvReligion() {
