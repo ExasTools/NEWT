@@ -200,11 +200,11 @@ function pushDataToPage(formID){
       document.querySelector('#characters-list').innerHTML = 
         Characters.map(character => `
           <section class="character-card">
-          <h2>${character.name}</h2>
-          <p>${character.nickname}</p>
-          <p>${character.age}</p>
-          <p>${character.race}</p>
-          <p>${character.description}</p>
+          <h2>Name: ${character.name}</h2>
+          <p>Nickname: ${character.nickname}</p>
+          <p>Age: ${character.age}</p>
+          <p>Race: ${character.race}</p>
+          <p>Description: ${character.description}</p>
           </section>
         `).join('')
     break
