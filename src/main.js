@@ -210,17 +210,14 @@ function pushDataToPage(formID){
           <p>Race: ${character.race}</p>
           <p>Description: ${character.description}</p>
           <p>Index: ${index}</p>
-          <button id="edit-button" class="form-button" data-index="${index}">Edit</button> <button id="delete-button" class="form-button" data-index="${index}">Delete</button>
+          <button class="form-button" data-index="${index}">Edit</button> <button class="form-button" data-index="${index}">Delete</button>
           </section>
         `).join('') 
     break
   }
-  document.querySelector(".form-button").addEventListener('click', () => {
-    const debugValue = document.querySelectorAll(".form-button")
-    debugValue.forEach(button => {
-      button.addEventListener("click", () => {
-        console.log("Look the button says the ID is " + button.dataset.index)
-      })
+  document.querySelectorAll(".form-button").forEach(button => {
+    button.addEventListener("click", () => {
+      console.log("Look the button says the ID is " + button.dataset.index)
     })
   })
 }
