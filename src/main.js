@@ -1,11 +1,14 @@
 import './style.css'
+import { saveCharacters, loadCharacters } from './characterStorage.js'
 
 const app = document.querySelector('#app')
-const ver = "0.0.1"
+const ver = "0.0.2"
 
 // Define arrays (empty drawer)
-let Characters = []
+let Characters = loadCharacters()
+let editCharIndex = null
 // I've refrained from adding ALL the drawers, I get scope creep like a mofo
+
 
 
 function showHome() {
@@ -102,27 +105,7 @@ function hookTimeHeader() {
   document.querySelector("#home-button").addEventListener('click', showHome)
   // TODO: Add more when I get to this :)
 }
-/**
- * @deprecated Functionality built into other method
- */
-function charSubmit() {
-  console.warn("Warning: Deprecated! Are you testing something?")
 
-  const charName = document.querySelector("#charName")
-  const charNick = document.querySelector("#charNickname")
-  const charAge = document.querySelector("#charAge")
-  const charRace = document.querySelector("#charRace")
-  const charDesc = document.querySelector("#charDesc")
-
-  console.log({
-    name: charName.value,
-    nickname: charNick.value,
-    age: charAge.value,
-    race: charRace.value,
-    description: charDesc.value
-
-  })
-}
 
 function showLoreVault() {
   app.innerHTML = `
@@ -146,17 +129,31 @@ function devLog() {
 
     <section class="tool-card">
       <p><strong>Development Log</strong></p>
+      
+      <section class="tool-card">
+        <p><strong>build-0.0.2</strong></p>
+        <p>• Fully removed the deprecated <code>charSubmit()</code></p>
+        <p>• Added persistent character storage</p>
+        <p>• Delete Button now deletes characters. No "are you sure?" prompt yet</p>
+        <p>• Edit Button now refills the form and updates the existing character</p>
+        <p>• Editing a character will auto-scroll to the form</p>
+        <p>• Saving or updating a character automagically scrolls to its card</p>
+        <p>• Split character storage functions into <code>characterStorage.js</code></p>
+      </section>
 
-      <p><strong>build-0.0.1</strong></p>
-      <p>• Put together the basic framework.</p>
-      <p>• Got page navigation working.</p>
-      <p>• Characters can now be created and stored.</p>
-      <p>• Character cards finally look like... well, cards.</p>
-      <p>• Learned map(), index, and why event listeners should behave themselves.</p>
-      <p>• Fixed a performance issue that was entirely my own fault.</p>
-      <p>• Added build information to the footer.</p>
-      <p>• Calling this a solid first milestone.</p>
-      <p>• Oh! And also added a lil devlog page.</p>
+      <section class="tool-card">
+        <p><strong>build-0.0.1</strong></p>
+        <p>• Put together the basic framework.</p>
+        <p>• Got page navigation working.</p>
+        <p>• Characters can now be created and stored.</p>
+        <p>• Character cards finally look like... well, cards.</p>
+        <p>• Learned map(), index, and why event listeners should behave themselves.</p>
+        <p>• Fixed a performance issue that was entirely my own fault.</p>
+        <p>• Added build information to the footer.</p>
+        <p>• Calling this a solid first milestone.</p>
+        <p>• Oh! And also added a lil devlog page.</p>
+      </section>
+
     </section>
     ${displayFooter()}
     </main>
@@ -213,16 +210,20 @@ function lvChar() {
       <label>Description</label>
       <textarea class="field-input" id="charDesc"></textarea>
       <br><br>
-      <button id="submit-button">Save (loosely)</button>
+      <button id="submit-button">Save</button>
     </section>
 
     <section class="tool-card" id="characters-list"></section>
 
     ${displayFooter()}
   `
+  if (Characters.length !== 0) {
+    pushDataToPage(1) 
+    console.log("Data is being pushed")
+  }
   hookAltHeader()
   document.querySelector("#submit-button").addEventListener('click', () => {
-    
+    // Save/Edit Button Listener
     
     const charName = document.querySelector("#charName")
     const charNick = document.querySelector("#charNickname")
@@ -237,11 +238,24 @@ function lvChar() {
       race: charRace.value || "Missing Information",
       description: charDesc.value || "Missing Information"
     }
+    let targetIndex
 
-    Characters.push(builtCharacter)
+    if (editCharIndex === null) {
+      Characters.push(builtCharacter)
+      targetIndex = Characters.length - 1
+    } else {
+      targetIndex = editCharIndex
+      Characters[editCharIndex] = builtCharacter
+      editCharIndex = null
+    }
 
-    console.log(Characters)
+    saveCharacters(Characters)
     pushDataToPage(1)
+
+    document.querySelector(`#character-card-${targetIndex}`).scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    })
 
   })
 
@@ -257,7 +271,7 @@ function pushDataToPage(formID){
     case 1:
       document.querySelector('#characters-list').innerHTML = 
         Characters.map((character, index) => `
-          <section class="character-card">
+          <section class="character-card" id="character-card-${index}">
           <h2>Name: ${character.name}</h2>
           <hr class="card-custom-divider">
           <p>Nickname: ${character.nickname}</p>
@@ -265,14 +279,36 @@ function pushDataToPage(formID){
           <p>Race: ${character.race}</p>
           <p>Description: ${character.description}</p>
           <p>Index: ${index}</p>
-          <button class="form-button" data-index="${index}">Edit</button> <button class="form-button" data-index="${index}">Delete</button>
+          <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
           </section>
         `).join('') 
     break
   }
-  document.querySelectorAll(".form-button").forEach(button => {
+  document.querySelectorAll(".edit-button").forEach(button => {
     button.addEventListener("click", () => {
-      console.log("Look the button says the ID is " + button.dataset.index)
+      const index = Number(button.dataset.index)
+      const character = Characters[index]
+
+      document.querySelector("#charName").value = character.name || "Missing Information"
+      document.querySelector("#charNickname").value = character.nickname || "Missing Information"
+      document.querySelector("#charAge").value = character.age || "Missing Information"
+      document.querySelector("#charRace").value = character.race || "Missing Information"
+      document.querySelector("#charDesc").value = character.description || "Missing Information"
+
+      editCharIndex = index
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    })
+  })
+  document.querySelectorAll(".delete-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.index)
+
+      Characters.splice(index, 1)
+      saveCharacters(Characters)
+      pushDataToPage(1)
     })
   })
 }
