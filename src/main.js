@@ -2,7 +2,7 @@ import './style.css'
 import { saveCharacters, loadCharacters } from './characterStorage.js'
 
 const app = document.querySelector('#app')
-const ver = "0.0.3"
+const ver = "0.0.4"
 
 // Define arrays (empty drawer)
 let Characters = loadCharacters()
@@ -31,7 +31,7 @@ function showHome() {
 
 function displayHeader() {
   return `
-    <h1> Exa's Writing Tools </h1>
+    <h1> Exa's Writing Tools (Quillworks) </h1>
     <section class="header-section">
       <button id="home-button" class="nav-button">Home</button>
       <button id="vault-button" class="nav-button">Lore Vault</button>
@@ -74,7 +74,7 @@ function displayTimeHeader() {
 
 function displayFooter() {
   return `
-    <section class="footer-card"><p>Exa's Writing Tools build-${ver}</p></section>
+    <section class="footer-card"><p>Exa's Writing Tools (Quillworks) build-${ver}</p></section>
   `
 }
 
@@ -381,6 +381,7 @@ function lvTimeline() {
       <p>That said... I couldn't tell you when I'll get around to it.</p>
       <p>Check back sometime after I finish more of the Lore Vault </p>
     </section>
+    ${displayFooter()}
   `
   hookTimeHeader()
 }
