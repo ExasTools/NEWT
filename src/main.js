@@ -2,7 +2,7 @@ import './style.css'
 import { saveCharacters, loadCharacters } from './characterStorage.js'
 
 const app = document.querySelector('#app')
-const ver = "0.0.2"
+const ver = "0.0.3"
 
 // Define arrays (empty drawer)
 let Characters = loadCharacters()
@@ -17,7 +17,7 @@ function showHome() {
       ${displayHeader()}
       
       <section class="tool-card">
-        <p> Currently, the only features available is a very rudamentary character input screen. More to come... </p>
+        <p> Finished the bones and skin of the Character input... moving along. </p>
         <p> That said, to those that read this- thank you for checking out what I'm working on! I really appreciate it more than I can convey through text </p>
       </section>
       ${displayFooter()}
@@ -131,6 +131,13 @@ function devLog() {
       <p><strong>Development Log</strong></p>
       
       <section class="tool-card">
+        <p><strong>build-0.0.3</strong></p>
+        <p>• Added a confirmation dialogue upon deletion of a character</p>
+        <p>• Added an empty state message for <code>Characters</code> page</p>
+        <p>• Like a goober, I've lightly versioned the Characters page in the very bottom middle.</p>
+      </section>
+
+      <section class="tool-card">
         <p><strong>build-0.0.2</strong></p>
         <p>• Fully removed the deprecated <code>charSubmit()</code></p>
         <p>• Added persistent character storage</p>
@@ -214,12 +221,17 @@ function lvChar() {
     </section>
 
     <section class="tool-card" id="characters-list"></section>
-
     ${displayFooter()}
+    <center><code>characters_page_v1</code></center>
   `
   if (Characters.length !== 0) {
     pushDataToPage(1) 
     console.log("Data is being pushed")
+  } else {
+    document.querySelector('#characters-list').innerHTML = `
+      <p> An empty table sits in an empty room. Time to get this party started!</p>
+      <p> Add some people! </p>
+    `
   }
   hookAltHeader()
   document.querySelector("#submit-button").addEventListener('click', () => {
@@ -268,6 +280,7 @@ function pushDataToPage(formID){
   }
 
   switch (formID) {
+    
     case 1:
       document.querySelector('#characters-list').innerHTML = 
         Characters.map((character, index) => `
@@ -305,10 +318,19 @@ function pushDataToPage(formID){
   document.querySelectorAll(".delete-button").forEach(button => {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.index)
-
+      // are you sure?
+      if (!confirm(`Delete "${Characters[index].name}"?`)) return
+      // alright then
+      
       Characters.splice(index, 1)
       saveCharacters(Characters)
       pushDataToPage(1)
+      if (Characters.length === 0) {
+        document.querySelector('#characters-list').innerHTML = `
+          <p> An empty table sits in an empty room. Time to get this party started!</p>
+          <p> Add some people! </p>
+        `
+      }
     })
   })
 }
