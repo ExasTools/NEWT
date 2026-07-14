@@ -205,11 +205,11 @@ Please report this to https://github.com/markedjs/marked.`,e){let e=`<p>An error
           <section class="character-card" id="character-card-${t}">
           <h2>Name: ${U.parse(e.name)}</h2>
           <hr class="card-custom-divider">
-          <p>Nickname: ${U.parse(e.nickname)}</p>
-          <p>Age: ${U.parse(e.age)}</p>
-          <p>Race: ${U.parse(e.race)}</p>
-          <p>Description: ${U.parse(e.description)}</p>
-          <p>Index: ${t}</p>
+          <div>Nickname: ${U.parse(e.nickname)}</div>
+          <div>Age: ${U.parse(e.age)}</div>
+          <div>Race: ${U.parse(e.race)}</div>
+          <div>Description: ${U.parse(e.description)}</div>
+          <div>Index: ${t}</div>
           <button class="form-button edit-button" data-index="${t}">Edit</button> <button class="form-button delete-button" data-index="${t}">Delete</button>
           </section>
         `).join(``);break}document.querySelectorAll(`.edit-button`).forEach(e=>{e.addEventListener(`click`,()=>{let t=Number(e.dataset.index),n=G[t];document.querySelector(`#charName`).value=n.name||`Missing Information`,document.querySelector(`#charNickname`).value=n.nickname||`Missing Information`,document.querySelector(`#charAge`).value=n.age||`Missing Information`,document.querySelector(`#charRace`).value=n.race||`Missing Information`,document.querySelector(`#charDesc`).value=n.description||`Missing Information`,K=t,window.scrollTo({top:0,behavior:`smooth`})})}),document.querySelectorAll(`.delete-button`).forEach(t=>{t.addEventListener(`click`,()=>{let n=Number(t.dataset.index);confirm(`Delete "${G[n].name}"?`)&&(G.splice(n,1),e(G),$(1),G.length===0&&(document.querySelector(`#characters-list`).innerHTML=`
