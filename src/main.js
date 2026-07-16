@@ -67,7 +67,7 @@ function hookTimeHeader() {
 
 function hookWBHeader() {
     document.querySelector("#vault-button").addEventListener('click', showLoreVault)
-    document.querySelector("#locs-button").addEventListener('click', showLoreVault)
+    document.querySelector("#locs-button").addEventListener('click', wbPlaces)
     document.querySelector("#nations-button").addEventListener('click', wbNations)
     document.querySelector("#factions-button").addEventListener('click', wbFactions)
     document.querySelector("#religion-button").addEventListener('click', wbReligion)
@@ -363,61 +363,61 @@ function Timeline() {
 function wbPlaces() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
+    ${displayWBHeader()}
     <br>
     <section class="tool-card">
       <p></p>
     </section>
   `
-  hookAltHeader()
+  hookWBHeader()
 }
 
 function wbReligion() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
+    ${displayWBHeader()}
     <br>
     <section class="tool-card">
       <p>Religion page</p>
     </section>
   `
-  hookAltHeader()
+  hookWBHeader()
 }
 
 function wbGods() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
+    ${displayWBHeader()}
     <br>
     <section class="tool-card">
       <p>Gods/Deities page</p>
     </section>
   `
-  hookAltHeader()
+  hookWBHeader()
 }
 
 function wbNations() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
+    ${displayWBHeader()}
     <br>
     <section class="tool-card">
       <p>Nations page</p>
     </section>
   `
-  hookAltHeader()
+  hookWBHeader()
 }
 
 function wbFactions() {
   app.innerHTML = `
     <main class="app-shell">
-    ${displayLoreHeader()}
+    ${displayWBHeader()}
     <br>
     <section class="tool-card">
       <p>Factions page</p>
     </section>
   `
-  hookAltHeader()
+  hookWBHeader()
 }
 
 showHome()
