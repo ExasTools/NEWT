@@ -55,6 +55,7 @@ function hookHeaderButtons() {
 
 function hookAltHeader() { // I decided against resusing hookHeaderButtons()
   document.querySelector("#home-button").addEventListener('click', showHome)
+  document.querySelector("#vault-button").addEventListener('click', showLoreVault)
   document.querySelector("#char-button").addEventListener('click', lvChar)
   document.querySelector("#wb-button").addEventListener('click', showWB)
   document.querySelector("#event-button").addEventListener('click', lvEvents)
@@ -68,6 +69,7 @@ function hookTimeHeader() {
 
 function hookWBHeader() {
     document.querySelector("#vault-button").addEventListener('click', showLoreVault)
+    document.querySelector("#wb-button").addEventListener('click', showWB)
     document.querySelector("#locs-button").addEventListener('click', wbPlaces)
     document.querySelector("#nations-button").addEventListener('click', wbNations)
     document.querySelector("#factions-button").addEventListener('click', wbFactions)
@@ -102,7 +104,9 @@ function devLog() {
       <section class="tool-card">
         <section class="tool-card-dlog">
           <p><strong>build-0.1.2</strong></p>
-          <p>• Added logic to headers to set "active" button. Helps navigation
+          <p>• Added logic to headers to set "active" button. Helps navigation</p>
+          <p>• Added back Lore Vault button and extra redundant header buttons to ease navigation.</p>
+          <hr class=card-custom-divider>
         <section class="tool-card-dlog">
           <p><strong>build-0.1.1</strong></p>
           <p>• Added the beginnings of a Settings page with a lil button</p>
