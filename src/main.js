@@ -5,6 +5,7 @@ import { marked } from 'marked'
 
 const app = document.querySelector('#app')
 const ver = "0.1.2"
+const debugging = false // If set to true, the output will be more verbosue.
 
 
 // Define arrays (empty drawer)
@@ -106,6 +107,7 @@ function devLog() {
           <p><strong>build-0.1.2</strong></p>
           <p>• Added logic to headers to set "active" button. Helps navigation</p>
           <p>• Added back Lore Vault button and extra redundant header buttons to ease navigation.</p>
+          <p>• Renamed <code>pushDataToPage()</code> to <code>renderCharacters()</code> and removed abstraction
           <hr class=card-custom-divider>
         <section class="tool-card-dlog">
           <p><strong>build-0.1.1</strong></p>
@@ -189,30 +191,21 @@ function showSettings() {
   setActiveButton('settings-button')
 }
 
-function pushDataToPage(formID){
-  if (!Number.isInteger(formID)) {
-    console.error("formID must be an integer")
-    return
-  }
+function renderCharacters(){
+    document.querySelector('#characters-list').innerHTML = 
+      Characters.map((character, index) => `
+        <section class="character-card" id="character-card-${index}">
+        <h2>Name: ${marked.parseInline(character.name)}</h2>
+        <hr class="card-custom-divider">
+        <div>Nickname: ${marked.parseInline(character.nickname)}</div>
+        <div>Age: ${marked.parseInline(character.age)}</div>
+        <div>Race: ${marked.parseInline(character.race)}</div>
+        <div>Description: ${marked.parse(character.description)}</div>
+        <div>Index: ${index}</div>
+        <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
+        </section>
+      `).join('') 
 
-  switch (formID) {
-    
-    case 1:
-      document.querySelector('#characters-list').innerHTML = 
-        Characters.map((character, index) => `
-          <section class="character-card" id="character-card-${index}">
-          <h2>Name: ${marked.parseInline(character.name)}</h2>
-          <hr class="card-custom-divider">
-          <div>Nickname: ${marked.parseInline(character.nickname)}</div>
-          <div>Age: ${marked.parseInline(character.age)}</div>
-          <div>Race: ${marked.parseInline(character.race)}</div>
-          <div>Description: ${marked.parse(character.description)}</div>
-          <div>Index: ${index}</div>
-          <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
-          </section>
-        `).join('') 
-    break
-  }
   document.querySelectorAll(".edit-button").forEach(button => {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.index)
@@ -240,7 +233,7 @@ function pushDataToPage(formID){
       
       Characters.splice(index, 1)
       saveCharacters(Characters)
-      pushDataToPage(1)
+      renderCharacters()
       if (Characters.length === 0) {
         document.querySelector('#characters-list').innerHTML = `
           <p> An empty table sits in an empty room. Time to get this party started!</p>
@@ -285,7 +278,7 @@ function lvChar() {
     <center><code>characters_page_v1</code></center>
   `
   if (Characters.length !== 0) {
-    pushDataToPage(1) 
+    renderCharacters()
     console.log("Data is being pushed")
   } else {
     document.querySelector('#characters-list').innerHTML = `
@@ -323,7 +316,7 @@ function lvChar() {
     }
 
     saveCharacters(Characters)
-    pushDataToPage(1)
+    renderCharacters()
 
     document.querySelector(`#character-card-${targetIndex}`).scrollIntoView({
       behavior: "smooth",
