@@ -55,6 +55,16 @@ h1 {
   justify-content: center;
 }
 
+.place-card {
+  margin-top: 16px;
+  padding: 15px;
+  max-width: 400px;
+  border: 1px solid #33333d;
+  border-radius: 14px;
+  background: #202025;
+  justify-content: center;
+}
+
 .footer-card {
   margin-top: 32px;
   border: 1px solid linear-gradient(to right, transparent, #333, transparent);
