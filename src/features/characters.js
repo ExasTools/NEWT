@@ -43,8 +43,7 @@ export function showCharacters({
     console.log("Data is being pushed")
   } else {
     document.querySelector('#characters-list').innerHTML = `
-      <p> An empty table sits in an empty room. Time to get this party started!</p>
-      <p> Add some people! </p>
+      <div class="todo"><p> An empty table sits in an empty room. Time to get this party started! Add some people! </p></div>
     `
   }
   hookAltHeader()
@@ -133,8 +132,7 @@ function renderCharacters(){
       renderCharacters()
       if (Characters.length === 0) {
         document.querySelector('#characters-list').innerHTML = `
-          <p> An empty table sits in an empty room. Time to get this party started!</p>
-          <p> Add some people! </p>
+          <div class="todo"><p> An empty table sits in an empty room. Time to get this party started! Add some people! </p></div>
         `
       }
     })

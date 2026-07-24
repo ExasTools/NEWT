@@ -55,10 +55,10 @@ export function showPlaces({
         const placeDesc = document.querySelector("#placeDesc")
     
         const builtPlace = {
-          pName: placeName.value || "Missing Information",
-          pType: placeType.value || "Missing Information",
-          pRegion: placeRegion.value || "Missing Information",
-          pDesc: placeDesc.value || "Missing Information"
+          name: placeName.value || "Missing Information",
+          type: placeType.value || "Missing Information",
+          region: placeRegion.value || "Missing Information",
+          desc: placeDesc.value || "Missing Information"
         }
         let targetIndex
     
@@ -85,11 +85,11 @@ function renderPlaces() {
   document.querySelector('#places-list').innerHTML =
   Places.map((place, index) => `
     <section class="place-card" id="place-card-${index}">
-    <h2>Place Name: ${marked.parseInline(place.pName)}</h2>
+    <h2>Place Name: ${marked.parseInline(place.name)}</h2>
     <hr class="card-custom-divider">
-    <div>Place Type: ${marked.parseInline(place.pType)}</div>
-    <div>Place Region: ${marked.parseInline(place.pRegion)}</div>
-    <div>Place Description: ${marked.parse(place.pDesc)}</div>
+    <div>Place Type: ${marked.parseInline(place.type)}</div>
+    <div>Place Region: ${marked.parseInline(place.region)}</div>
+    <div>Place Description: ${marked.parse(place.desc)}</div>
     <div>Index: ${index}</div>
     <button class="form-button edit-button" data-index="${index}">Edit</button> <button class="form-button delete-button" data-index="${index}">Delete</button>
     </section>
@@ -100,10 +100,10 @@ function renderPlaces() {
       const index = Number(button.dataset.index)
       const place = Places[index]
       
-      document.querySelector("#placeName").value = place.pName || "Missing Information"
-      document.querySelector("#placeType").value = place.pType || "Missing Information"
-      document.querySelector("#placeRegion").value = place.pRegion || "Missing Information"
-      document.querySelector("#placeDesc").value = place.pDesc || "Missing Information"
+      document.querySelector("#placeName").value = place.name || "Missing Information"
+      document.querySelector("#placeType").value = place.type || "Missing Information"
+      document.querySelector("#placeRegion").value = place.region || "Missing Information"
+      document.querySelector("#placeDesc").value = place.desc || "Missing Information"
 
       editPlcIndex = index
       window.scrollTo({
@@ -116,7 +116,7 @@ function renderPlaces() {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.index)
       // You sure?
-      if (!confirm(`Delete "${Places[index].pName}"?`)) return
+      if (!confirm(`Delete "${Places[index].name}"?`)) return
       // Okie dokie
 
       Places.splice(index, 1)
